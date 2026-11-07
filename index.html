@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>مجرة دلوعتي شروق ✨ كل سنة وإنتي طيبة يا بنوتي ❤️</title>
+  <link rel="stylesheet" href="style.css?v=3" />
+  <!-- Three.js & Controls -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body>
+
+  <!-- 3D WebGL Canvas Container -->
+  <div id="canvas-container"></div>
+
+  <!-- Hint Toast -->
+  <div id="StatusToast">✨ اضغطي على أي صورة في المجرة يا دلوعتي أو شغلي الجولة التلقائية ✨</div>
+
+  <!-- ==================== INTRO GATE OVERLAY ==================== -->
+  <div id="intro-screen">
+    <div class="intro-card">
+      <div class="intro-badge">👑 2006 ⬅️ 2026 • عيد ميلاد دلوعتي الـ 20 👑</div>
+      <h1 class="intro-title">كل سنة وإنتي دنيتي يا شروق ❤️</h1>
+      <p class="intro-subtitle">
+        يا <strong>دلوعتي</strong> و<strong>بنوتي</strong> وأحلى <strong>شوشو</strong> في الكون.. عملتلك مجرة ثلاثية الأبعاد بتلف حواليكي إنتي لوحدك، كل نجمة وكوكب فيها شايل ذكرى وضِحكة عشناها سوا ✨
+      </p>
+
+      <!-- Nickname Pills Showcase on Intro -->
+      <div class="nickname-tags">
+        <span class="nick-pill">💖 دلوعتي</span>
+        <span class="nick-pill">👑 شروق</span>
+        <span class="nick-pill">🌸 بنوتي</span>
+        <span class="nick-pill">✨ شوشو</span>
+      </div>
+
+      <!-- Live 20 Years Counter -->
+      <div class="timer-box">
+        <div class="timer-label">✨ الوقت اللي الدنيا نورت فيه بدلوعتي شروق (7 / 11 / 2006) ✨</div>
+        <div class="timer-grid">
+          <div class="timer-item">
+            <span class="timer-val" id="t-years">20</span>
+            <span class="timer-unit">Years</span>
+          </div>
+          <div class="timer-item">
+            <span class="timer-val" id="t-days">7305</span>
+            <span class="timer-unit">Days</span>
+          </div>
+          <div class="timer-item">
+            <span class="timer-val" id="t-hours">00</span>
+            <span class="timer-unit">Hours</span>
+          </div>
+          <div class="timer-item">
+            <span class="timer-val" id="t-secs">00</span>
+            <span class="timer-unit">Seconds</span>
+          </div>
+        </div>
+      </div>
+
+      <button id="enter-galaxy-btn" class="primary-btn">
+        <span>🚀 ادخلي مجرتك يا دلوعتي</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== TOP HUD BAR ==================== -->
+  <header id="hud-top">
+    <div class="hud-brand">
+      <span class="hud-brand-dot"></span>
+      <span class="hud-brand-text">مجرة دلوعتي شروق • بنوتي وشوشو القمر ✨</span>
+    </div>
+
+    <div class="hud-actions">
+      <button id="btn-autopilot" class="icon-btn" title="جولة سينمائية تلقائية">
+        <span>🎬</span>
+        <span class="btn-label">جولة تلقائية</span>
+      </button>
+      <button id="btn-music" class="icon-btn active" title="تشغيل / إيقاف الموسيقى">
+        <span id="music-icon">🎵</span>
+        <span class="btn-label">الموسيقى</span>
+      </button>
+      <button id="btn-letter" class="icon-btn" title="رسالتي ليكي يا دلوعتي">
+        <span>💌</span>
+        <span class="btn-label">رسالتي لدلوعتي</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== MEMORY SPOTLIGHT PANEL ==================== -->
+  <aside id="memory-panel">
+    <button class="memory-close" id="close-memory-btn" title="إغلاق">✕</button>
+    <div class="memory-media-wrap" id="memory-media-container">
+      <img id="memory-img" src="assets/photos/photo1.jpg" alt="Memory" />
+      <video id="memory-video" src="assets/memory_video.mp4" playsinline loop controls style="display:none;"></video>
+    </div>
+    <span class="memory-counter-tag" id="memory-tag">ذكرى #1 من 18</span>
+    <h3 class="memory-title" id="memory-title">أحلى ضحكة في الدنيا</h3>
+    <p class="memory-caption" id="memory-caption">كل تفصيلة فيكي بتخلي الأيام أحلى وأدفى.</p>
+    <div class="memory-nav">
+      <button class="nav-pill" id="prev-memory-btn">⏮ السابقة</button>
+      <button class="nav-pill" id="next-memory-btn">التالية ⏭</button>
+    </div>
+  </aside>
+
+  <!-- ==================== PARTICLE MORPH SUB-CONTROLS (ALL HER NAMES & NICKNAMES) ==================== -->
+  <div id="morph-controls">
+    <button class="morph-pill active" data-shape="daloaty">💖 دلوعتي شروق</button>
+    <button class="morph-pill" data-shape="shorouk">✨ SHOROUK ❤️</button>
+    <button class="morph-pill" data-shape="banoty">🌸 بنوتي القمر</button>
+    <button class="morph-pill" data-shape="twenty">👑 شوشو 20</button>
+    <button class="morph-pill" data-shape="heart">❤️ قلب ينبض</button>
+    <button class="morph-pill" data-shape="ring">💍 خاتم أبدي</button>
+  </div>
+
+  <!-- ==================== CAKE BLOW SUB-CONTROLS ==================== -->
+  <div id="cake-controls">
+    <div class="cake-hint" id="cake-status-text">🎂 اتمني أمنية يا دلوعتي وانفخي في الموبايل أو اضغطي الزرار عشان تطفي شمعة الـ 20!</div>
+    <div class="mic-meter-wrap" id="mic-meter-wrap">
+      <div id="mic-level-bar"></div>
+    </div>
+    <div class="cake-btn-row">
+      <button class="blow-btn" id="btn-mic-blow">🎤 انفخي في المايك يا شوشو</button>
+      <button class="blow-btn" id="btn-tap-blow">💨 اطفي الشموع حالاً!</button>
+    </div>
+  </div>
+
+  <!-- ==================== BOTTOM SCENE SWITCHER DOCK ==================== -->
+  <nav id="bottom-dock">
+    <button class="dock-btn active" data-mode="galaxy">
+      <span>🌌</span>
+      <span>مجرة ذكرياتنا (18)</span>
+    </button>
+    <button class="dock-btn" data-mode="morph">
+      <span>💫</span>
+      <span>اسمك ودلعك بالنجوم</span>
+    </button>
+    <button class="dock-btn" data-mode="cake">
+      <span>🎂</span>
+      <span>تورتة دلوعتي 20</span>
+    </button>
+    <button class="dock-btn" data-mode="fireworks">
+      <span>🎆</span>
+      <span>احتفال شروق</span>
+    </button>
+  </nav>
+
+  <!-- ==================== ROMANTIC LOVE LETTER MODAL ==================== -->
+  <div id="letter-modal">
+    <div class="letter-paper">
+      <button class="memory-close" id="close-letter-btn">✕</button>
+      <div class="letter-crown">👑💖🎂</div>
+      <h2 class="letter-heading">إلى دلوعتي وبنوتي وأحلى شروق في الكون.. كل سنة وإنتي حبيبتي ❤️</h2>
+      <div class="letter-body" id="letter-body-text">دلوعتي، بنوتي، وأحلى شوشو في الدنيا كلها..
+
+النهارده مش مجرد يوم عادي، النهارده دلوعتي كملت 20 سنة من النور والجمال والطيبة.. (2006 ⬅️ 2026) عشرين سنة الدنيا بقت فيهم أحلى بوجودك يا شروق، ومن يوم ما دخلتي حياتي وإنتي بقيتي شروق قلبي والسبب الحقيقي لضحكتي وفرحتي وراحتي.
+
+حبيت في عيد ميلادك أعملك حاجة بطريقتي كـ Software Engineer، مجرة كاملة بتلف حواليكي إنتي لوحدك يا دلوعتي، لأنك في عيني الكون كله.. كل صورة هنا وكل لحظة عشناها سوا هي نجمة منورة باسمك في قلبي ومستحيل تطفي أبداً.
+
+كل سنة وإنتي دلوعتي وبنوتي الصغيرة، كل سنة وضحكتك بتنور دنيتي، وكل سنة وإيدينا في إيدين بعض وعليهم قلوبنا لآخر العمر.
+
+بحبك يا شروق أكتر مما أي كود أو كلام في الدنيا يقدر يوصفه! ❤️✨</div>
+      <div class="letter-sign">بحبك للأبد يا دلوعتي ويا أحلى 20 سنة في عمري ♾️❤️</div>
+      <button class="primary-btn" id="btn-celebrate-from-letter">
+        <span>🎆 احتفال الألعاب النارية عشان دلوعتي!</span>
+      </button>
+    </div>
+  </div>
+
+  <script src="app.js?v=3"></script>
+</body>
+</html>
